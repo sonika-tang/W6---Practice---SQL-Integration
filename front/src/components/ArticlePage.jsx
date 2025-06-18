@@ -41,9 +41,15 @@ export default function ArticlePage() {
     <div>
       <h2>{article.title}</h2>
       <p>{article.content}</p>
-      <div>
-        <strong>Journalist:</strong> {article.journalist}
-      </div>
+    <div>
+      <strong>Journalist:</strong>{" "}
+      <a
+        onClick={() => navigate(`/journalists/${article.journalist_id}/articles`)}
+        style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
+      >
+        {article.journalist_name}
+      </a>
+    </div>
       <div>
         <strong>Category:</strong> {article.category}
       </div>

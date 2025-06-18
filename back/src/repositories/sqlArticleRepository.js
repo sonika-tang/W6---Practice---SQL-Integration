@@ -38,3 +38,27 @@ export async function deleteArticle(id) {
     // TODO
     await pool.query("DELETE FROM articles WHERE id = ?", [id]);
 }
+
+// Get article with journalist details
+export async function getArticleWithJournalist(id) {
+  const [rows] = await pool.query(
+    `SELECT a.*, j.name as journalist_name, j.email, j.bio
+     FROM articles a
+     JOIN journalists j ON a.journalist_id = j.id
+     WHERE a.id = ?`,
+    [id]
+  );
+  return rows[0];
+}
+
+// Get all articles by a journalist ID
+export async function getArticlesByJournalist(journalistId) {
+  const [rows] = await pool.query(
+    `SELECT a.*, j.name as journalist_name
+     FROM articles a
+     JOIN journalists j ON a.journalist_id = j.id
+     WHERE j.id = ?`,
+    [journalistId]
+  );
+  return rows;
+}
